@@ -84,6 +84,8 @@ function showModal() {
     nodeId: selectedNode.id,
     parent: selectedNode.parent ? selectedNode.parent.topic : "<none>",
     description: selectedNode.topic,
+    team: selectedNode.team,
+    department: selectedNode.department,
     status: selectedNode.style.code
   } 
   $("#rendered-form").view(model);
@@ -110,6 +112,8 @@ function handleSubmit(event) {
   console.log('node before = ', selectedNode)
   selectedNode.topic = formDataObj.description;
   selectedNode.style = styles[formDataObj.status];
+  selectedNode.team = formDataObj.team;
+  selectedNode.department = formDataObj.department;
   console.log('node after = ', selectedNode)
   console.log('node data = ', nodeData)
 
