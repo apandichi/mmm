@@ -15,7 +15,6 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
 </head>
-<body>
 
 <body>
    <div id="ex1" class="modal">
@@ -23,7 +22,7 @@
       <div class="">
          <h1 id="control-1065360">Major Mind Mesh<br></h1>
       </div>
-      <div class="formbuilder-text form-group field-text-id"><label for="nodeId" class="formbuilder-text-label">Team</label><input type="hidden" class="form-control" name="nodeId" id="nodeId"></div>
+      <div class="formbuilder-text form-group field-text-id"><input type="hidden" class="form-control" name="nodeId" id="nodeId"></div>
       <div class="formbuilder-select form-group field-select-1687173276076-0">
          <label for="select-1687173276076-0" class="formbuilder-select-label">Source Lead / Root<br></label>
          <select class="form-control" name="select-1687173276076-0" id="select-1687173276076-0" data-dashlane-rid="fbd0556324897288" data-form-type="other">
@@ -46,12 +45,16 @@
       <div class="formbuilder-text form-group field-text-1687173173762"><label for="text-1687173173762" class="formbuilder-text-label">Team</label><input type="text" class="form-control" name="text-1687173173762" id="text-1687173173762" data-dashlane-rid="e90ffe58db84c078" data-form-type="other"></div>
       <div class="formbuilder-textarea form-group field-textarea-1687173071652-0"><label for="textarea-1687173071652-0" class="formbuilder-textarea-label">Description</label><textarea class="form-control" name="description" id="description" data-dashlane-rid="b26be783991a950c" data-form-type="other"></textarea></div>
       <div class="formbuilder-file form-group field-file-1687172885695-0"><label for="file-1687172885695-0" class="formbuilder-file-label">Attachments</label><input type="file" class="form-control" name="file-1687172885695-0" id="file-1687172885695-0" data-dashlane-rid="7c7de792cca78695" data-form-type="other"></div>
-      <div class="formbuilder-button form-group field-button-1687172802959-0"><button type="submit" class="btn-success btn" name="button-1687172802959-0" style="success" id="button-1687172802959-0" data-dashlane-label="true" data-dashlane-rid="1b9d4299e6da8af9" data-form-type="action">Save<br></button></div>
+      <div class="formbuilder-button form-group field-button-1687172802959-0">
+         <button type="submit" class="btn-success btn" name="button-1687172802959-0" style="success" id="button-1687172802959-0" data-dashlane-label="true" data-dashlane-rid="1b9d4299e6da8af9" data-form-type="action">Save<br></button>
+      </div>
 </form>
 </div>
   
 <!-- partial:index.partial.html -->
 <div id="map"></div>
+
+<button type="button" class="btn-success btn" name="button-add-new" style="success" id="button-add-new" onclick="addNewNode()">Add new<br></button>
 <!-- partial -->
   <script src='https://cdn.jsdelivr.net/npm/mind-elixir@2.0.2/dist/MindElixir.js'></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>

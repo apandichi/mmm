@@ -1,6 +1,6 @@
 
 const styles = {
-  new: { fontSize: '24', color: '#ffffff', title: "New", code: 'new' },
+  new: { fontSize: '24', title: "New", code: 'new' },
   active: { fontSize: '24', color: '#ffffff', background: '#ffa500', title: "Active", code: "active" },
   resolved: { fontSize: '24', color: '#ffffff', background: '#8fce00', title: "Resolved", code: "resolved" },
   rootCause: { fontSize: '32', color: '#ffffff', background: '#db4c4c', title: "Root cause", code: "rootCause" },
@@ -10,11 +10,10 @@ var nodeData = {
   "nodeData":{
      "id": uuidv4(),
      "topic":"Root node",
-     "root":true,
      style: styles.new,
      "children":[
         {
-           "topic":"new node",
+           "topic":"new node 2",
            "id":"8d3b98e54a7e8583",
            style: styles.active,
            image: {
@@ -24,9 +23,8 @@ var nodeData = {
             width: 90, // required
           },
         }
-     ],
-     customData: {}
-  }
+     ]
+    }
 };
 
 
@@ -40,25 +38,55 @@ let mind = new MindElixir({
   toolBar: true, 
   nodeMenu: true,
   keypress: true,
+  contextMenuOption: {
+    focus: true,
+    link: true,
+    extend: [
+      {
+        name: 'Edit',
+        onclick: () => {
+          const menu = document.getElementsByClassName("context-menu")[0];
+          menu.setAttribute("hidden", true);
+          showModal();  
+        },
+      },
+
+    ],
+  },
 })
 mind.init(nodeData)
-console.log(mind)
-
-var selectedNode = nodeData.nodeData;
+console.log('mind.init', mind)
 
 mind.bus.addListener('selectNode', node => {
-  selectedNode = node;
   console.log('selected node = ', node)
+})
+
+mind.bus.addListener('operation', operation => {
+  console.log('operation', operation)
+  if (operation.name === "addChild") {
+      console.log('added child = ', operation.obj)
+      operation.obj.style = styles.rootCause;
+  }
+});
+
+function addNewNode() {
+  if (!mind.currentNode) {
+    mind.selectNode(nodeData.nodeData.id); // select the root node
+  }
+  mind.addChild();
+  showModal();
+}
+
+function showModal() {
   $('#ex1').modal();
+  const selectedNode = mind.currentNode.nodeObj;
   const model = {
-    nodeId: node.id,
-    description: node.topic,
-    status: node.style.code
+    nodeId: selectedNode.id,
+    description: selectedNode.topic,
+    status: selectedNode.style.code
   } 
   $("#rendered-form").view(model);
-
-
-})
+}
   
 function uuidv4() {
     return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'
@@ -77,6 +105,7 @@ function handleSubmit(event) {
   data.forEach((value, key) => (formDataObj[key] = value));
   console.log(formDataObj);
 
+  const selectedNode = mind.currentNode.nodeObj;
   console.log('node before = ', selectedNode)
   selectedNode.topic = formDataObj.description;
   selectedNode.style = styles[formDataObj.status];
@@ -86,8 +115,10 @@ function handleSubmit(event) {
 
   mind.refresh(nodeData);
   $.modal.close();
+  document.querySelector('form').reset();
 }
 
 const form = document.querySelector('form');
 form.addEventListener('submit', handleSubmit);
+form.reset();
 

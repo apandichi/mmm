@@ -2,3 +2,7 @@
   height: 500px;
   width: 100%;
 }
+
+.mind-elixir-toolbar.lt {
+    width: 40px!important;
+}
