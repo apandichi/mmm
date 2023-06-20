@@ -11,19 +11,7 @@ var nodeData = {
      "id": uuidv4(),
      "topic":"Root node",
      style: styles.new,
-     "children":[
-        {
-           "topic":"new node 2",
-           "id":"8d3b98e54a7e8583",
-           style: styles.active,
-           image: {
-            url: 'https://raw.githubusercontent.com/ssshooter/mind-elixir-core/master/images/logo2.png', // required
-            // you need to query the height and width of the image and calculate the appropriate value to display the image
-            height: 90, // required
-            width: 90, // required
-          },
-        }
-     ]
+     "children":[]
     }
 };
 
@@ -65,7 +53,7 @@ mind.bus.addListener('operation', operation => {
   console.log('operation', operation)
   if (operation.name === "addChild") {
       console.log('added child = ', operation.obj)
-      operation.obj.style = styles.rootCause;
+      operation.obj.style = styles.new;
   }
 });
 
@@ -87,6 +75,7 @@ function showModal() {
     team: selectedNode.team,
     department: selectedNode.department,
     datetime: selectedNode.datetime,
+    attachment: selectedNode.attachment,
     status: selectedNode.style.code
   } 
   $("#rendered-form").view(model);
@@ -116,6 +105,13 @@ function handleSubmit(event) {
   selectedNode.team = formDataObj.team;
   selectedNode.datetime = formDataObj.datetime;
   selectedNode.department = formDataObj.department;
+  selectedNode.attachment = formDataObj.attachment;
+  selectedNode.image = formDataObj.attachment && formDataObj.attachment.type.startsWith("image/") ? {
+    url: URL.createObjectURL(formDataObj.attachment),
+    height: 90,
+    width: 90,
+  } : {},
+
   console.log('node after = ', selectedNode)
   console.log('node data = ', nodeData)
 
