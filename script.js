@@ -37,7 +37,10 @@ let mind = new MindElixir({
 mind.init(nodeData)
 console.log(mind)
 
+var selectedNode = nodeData.nodeData;
+
 mind.bus.addListener('selectNode', node => {
+  selectedNode = node;
   console.log('selected node = ', node)
   $('#ex1').modal();
   const model = {
@@ -46,8 +49,6 @@ mind.bus.addListener('selectNode', node => {
   } 
   $("#rendered-form").view(model);
 
-  // var form = new FormData(document.querySelector('form'));
-  // form.forEach((value, key) => form.delete(key));
 
 })
 
@@ -74,10 +75,9 @@ function handleSubmit(event) {
   data.forEach((value, key) => (formDataObj[key] = value));
   console.log(formDataObj);
 
-  var node = findNode(formDataObj.nodeId);
-  console.log('node before = ', node)
-  node.topic = formDataObj.description;
-  console.log('node after = ', node)
+  console.log('node before = ', selectedNode)
+  selectedNode.topic = formDataObj.description;
+  console.log('node after = ', selectedNode)
   console.log('node data = ', nodeData)
   
   var x = {
@@ -94,18 +94,8 @@ function handleSubmit(event) {
     }
   }
 
-  // console.log("x = ", x);
-  // console.log("nodeData = ", nodeData);
-
-  // mind.init(x);
   mind.refresh(nodeData);
   $.modal.close();
-}
-
-function findNode(id) {
-  console.log('id =', id);
-  console.log('node id =', nodeData.nodeData.id);
-  if (id === nodeData.nodeData.id) return nodeData.nodeData;
 }
 
 const form = document.querySelector('form');
