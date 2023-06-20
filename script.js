@@ -38,7 +38,8 @@ mind.init(nodeData)
 console.log(mind)
 
 mind.bus.addListener('selectNode', node => {
-  console.log(node)
+  console.log('selected node = ', node)
+  $('#ex1').modal();
   const model = {
     nodeId: node.id,
     description: node.topic
@@ -98,6 +99,7 @@ function handleSubmit(event) {
 
   // mind.init(x);
   mind.refresh(nodeData);
+  $.modal.close();
 }
 
 function findNode(id) {
