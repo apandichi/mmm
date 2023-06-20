@@ -1,15 +1,22 @@
 
-
+const styles = {
+  new: { fontSize: '24', color: '#ffffff', title: "New", code: 'new' },
+  active: { fontSize: '24', color: '#ffffff', background: '#ffa500', title: "Active", code: "active" },
+  resolved: { fontSize: '24', color: '#ffffff', background: '#8fce00', title: "Resolved", code: "resolved" },
+  rootCause: { fontSize: '32', color: '#ffffff', background: '#db4c4c', title: "Root cause", code: "rootCause" },
+}
 
 var nodeData = {
   "nodeData":{
      "id": uuidv4(),
      "topic":"Root node",
      "root":true,
+     style: styles.new,
      "children":[
         {
            "topic":"new node",
            "id":"8d3b98e54a7e8583",
+           style: styles.active,
            image: {
             url: 'https://raw.githubusercontent.com/ssshooter/mind-elixir-core/master/images/logo2.png', // required
             // you need to query the height and width of the image and calculate the appropriate value to display the image
@@ -45,18 +52,13 @@ mind.bus.addListener('selectNode', node => {
   $('#ex1').modal();
   const model = {
     nodeId: node.id,
-    description: node.topic
+    description: node.topic,
+    status: node.style.code
   } 
   $("#rendered-form").view(model);
 
 
 })
-
-// Generate a random UUID
-// const random_uuid = uuidv4();
-  
-// Print the UUID
-// console.log(random_uuid);
   
 function uuidv4() {
     return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'
@@ -77,22 +79,10 @@ function handleSubmit(event) {
 
   console.log('node before = ', selectedNode)
   selectedNode.topic = formDataObj.description;
+  selectedNode.style = styles[formDataObj.status];
   console.log('node after = ', selectedNode)
   console.log('node data = ', nodeData)
-  
-  var x = {
-    "nodeData":{
-       "id":"8d3b2fec9511eb99",
-       "topic":"new topic 3",
-       "root":true,
-       "children":[
-          {
-             "topic":"new node",
-             "id":"8d3b98e54a7e8583"
-          }
-       ]
-    }
-  }
+
 
   mind.refresh(nodeData);
   $.modal.close();
