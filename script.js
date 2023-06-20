@@ -86,6 +86,7 @@ function showModal() {
     description: selectedNode.topic,
     team: selectedNode.team,
     department: selectedNode.department,
+    datetime: selectedNode.datetime,
     status: selectedNode.style.code
   } 
   $("#rendered-form").view(model);
@@ -106,13 +107,14 @@ function handleSubmit(event) {
   const data = new FormData(event.target);
   const formDataObj = {};
   data.forEach((value, key) => (formDataObj[key] = value));
-  console.log(formDataObj);
+  console.log("formDataObj", formDataObj);
 
   const selectedNode = mind.currentNode.nodeObj;
   console.log('node before = ', selectedNode)
   selectedNode.topic = formDataObj.description;
   selectedNode.style = styles[formDataObj.status];
   selectedNode.team = formDataObj.team;
+  selectedNode.datetime = formDataObj.datetime;
   selectedNode.department = formDataObj.department;
   console.log('node after = ', selectedNode)
   console.log('node data = ', nodeData)
