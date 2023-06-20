@@ -82,6 +82,7 @@ function showModal() {
   const selectedNode = mind.currentNode.nodeObj;
   const model = {
     nodeId: selectedNode.id,
+    parent: selectedNode.parent ? selectedNode.parent.topic : "<none>",
     description: selectedNode.topic,
     status: selectedNode.style.code
   } 
